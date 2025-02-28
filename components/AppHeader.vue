@@ -1,4 +1,18 @@
 <script setup lang="ts">
+import {useBreakpoints } from '@vueuse/core'
+
+//On use les breakpoints pour définir les tailles de l'écran possible
+const breakpoints = useBreakpoints({
+  mobile: 0, // optional
+  tablet: 640,
+  laptop: 1024,
+  desktop: 1280,
+  lg: 100000,
+})
+ 
+//Vérifier si la taille de l'écran actuelle est parmi les tailles renseigné
+const laptop = breakpoints.between('laptop', 'lg')
+
 const links = [
   {
     label:'Blog',
@@ -19,8 +33,8 @@ const links = [
       </NuxtLink>
     </template>
 
-    <template #center >
-      <UHeaderLinks :links="links" />
+    <template #center v-if="laptop">
+      <UHeaderLinks  :links="links" />
     </template>
     
     <template #right>
@@ -29,7 +43,7 @@ const links = [
     </template>
 
     <template #panel>
-      <UAsideLinks :links="links" />
+      <UHeaderPopoverLinks :links="links" />
     </template>
   </UHeader>
 </template>
