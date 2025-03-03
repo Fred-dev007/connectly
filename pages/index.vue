@@ -1,24 +1,36 @@
 <template>
-  <UColorModeButton />
-  <hr>
-  <UBlogList orientation="horizontal">
-    <UBlogPost
-      title="Nuxt 3.9"
-      description="Nuxt 3.9 is out - a Christmas gift from the Nuxt team bringing Vite 5, interactive..."
-    />
-    <UBlogPost
-      title="Nuxt DevTools 1.0"
-      description="Nuxt DevTools v1.0 is out, generally available to all Nuxt projects!"
-    />
-    <UBlogPost
-      title="Nuxt 3.8"
-      description="Nuxt 3.8 is out, bringing built-in DevTools, automatic Nuxt Image install, a new app..."
-    />
-  </UBlogList>
+<UContainer v-if="page">
+  <UPageHero :title="page.hero.title" :description="page.hero.description" :links="page.hero.links"  />
+
+<ULandingSection>
+  <NuxtImg :alt="page.hero.image.alt"  :src="page.hero.image.src" />
+</ULandingSection>
+
+<ULandingSection v-for="(section,index) in page.sections" :key="index" :title="section.title" :description="section.description">
+
+  <UPageGrid>
+    <UPageCard v-for="(feature ,index) in section.features" :key="index" :title="feature.name" :description="feature.description" :icon="feature.icon" />
+  </UPageGrid>
+
+</ULandingSection>
+
+<ULandingSection :title="page.features.title" :description="page.features.description">
+  <UPageGrid>
+    <ULandingCard v-for="(item , index) in page.features.items" :key="index" :title="item.title" :icon="item.icon" :description="item.description" />
+  </UPageGrid>
+</ULandingSection>
+
+<ULandingCTA v-bind="page.cta"/>
+
+</UContainer>
 </template>
 
 <script lang="ts" setup>
+useHead({
+  title:'Accueil - Connectly',
+})
 
+const {data:  page}= await useAsyncData('index', ()=>queryCollection('data').first())
 </script>
 
 <style>

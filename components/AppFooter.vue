@@ -43,7 +43,7 @@ const links = [
       <UFooterColumns :links="links">
         <template #right>
           <form>
-            <Uformfield name="email" label="S'inscrire à notre newsleter" size="lg"> 
+            <UFormfield name="email" label="S'inscrire à notre newsleter" size="lg"> 
               <UInput type="email" class="w-full" placeholder="Entrez votre email">
               <template #trailing>
                 <UButton
@@ -54,7 +54,7 @@ const links = [
                 />
               </template>
             </UInput>
-            </Uformfield>
+            </UFormfield>
           </form> 
         </template>
       </UFooterColumns>
